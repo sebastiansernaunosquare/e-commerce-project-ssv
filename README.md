@@ -57,3 +57,28 @@ Develop an e-commerce site that's going to allow the user to login or create an 
 |**Environmental**|Nodejs-Express|These environment and library allows us to create APIs|
 |**Availability-Reliability**|MySql-Postgres|These Database allows us to have available and reliable access to data|
 
+**Wireframes**
+
+**Home page & Products page**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/d99f5c53-6e29-4319-b7b9-008940e37026)
+
+**Login & Sign Up pages**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/6885a31c-8f25-4b5e-8ac2-3dfda1148d59)
+
+**Cart overlay**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/e38ed1f4-e8e6-48ed-b5cd-90868df46480)
+
+**Product page**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/6d2a2600-df69-4e87-90d4-d4462d583fa9)
+
+**Purchase page**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/d28534b5-8444-499d-bdc5-c75cae6fb68e)
+
+**Admin product page**
+
+![image](https://github.com/sebastiansernaunosquare/e-commerce-project-ssv/assets/137529439/8ef451c3-fa14-4d57-9f3f-dbf34d1ccb97)

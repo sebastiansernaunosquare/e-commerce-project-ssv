@@ -12,6 +12,26 @@ Develop an e-commerce site that's going to allow the user to login or create an 
  - Cart Module
  - Purchase Module
 
+**Entities**
+
+**Product**
+ - name
+ - price
+ - description
+ - stock
+
+**User**
+ - email
+ - password
+ - role
+ - purchases
+
+**Purchase**
+ - id
+ - products
+ - amount
+ - transaction date
+
 **Functional requirements**
 
 **Authentication Module**

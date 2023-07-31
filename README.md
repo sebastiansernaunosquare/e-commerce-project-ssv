@@ -1,4 +1,4 @@
-# E-commerce project ssv
+# Yoroi store
 
 **Project scope**
 

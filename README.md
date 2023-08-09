@@ -15,6 +15,7 @@ Develop an e-commerce site that's going to allow the user to login or create an 
 **Entities**
 
 **Product**
+ - id
  - name
  - price
  - description
@@ -30,6 +31,7 @@ Develop an e-commerce site that's going to allow the user to login or create an 
  - id
  - products
  - amount
+ - quantity
  - transaction date
 
 **Functional requirements**

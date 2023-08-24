@@ -158,7 +158,6 @@ router.post("/", function (req, res, next) {
  *        description: Server error
  */
 router.put("/:email", function (req, res, next) {
-  debugger;
   const email = req.params.email;
   const { password, role } = req.body;
   pool.query(

@@ -1,6 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const router = express.Router();
 const pool = require("../queries/queries");
+const { checkDuplicateEmail } = require("../middlewares");
 
 /**
  * @swagger
@@ -210,6 +212,149 @@ router.delete("/:email", function (req, res, next) {
       res.status(200).send(`User deleted with email: ${email}`);
     }
   );
+});
+
+/* POST create an user and signup. */
+/**
+ * @swagger
+ *  /users/signup:
+ *  post:
+ *    summary: Create an user and sign up
+ *    tags: [User]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *    responses:
+ *      200:
+ *        description: Account creation succesful
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      500:
+ *        description: Server error
+ */
+router.post("/signup", function (req, res, next) {
+  console.log("sign up dude!");
+  try {
+    const { email, password, role } = req.body;
+    const encryptedPassword = bcrypt.hashSync(password);
+    pool.query(
+      "INSERT INTO public.tbl_user(email, password, role) VALUES ($1, $2, $3) RETURNING *",
+      [email, encryptedPassword, role],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+        res
+          .status(201)
+          .send(`Account creation succesful: ${results.rows[0].email}`);
+      }
+    );
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+
+/* POST create an user and signup. */
+/**
+ * @swagger
+ *  /users/login:
+ *  post:
+ *    summary: Log in a user
+ *    tags: [User]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *    responses:
+ *      200:
+ *        description: Token set
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      500:
+ *        description: Server error
+ */
+router.post("/login", function (req, res, next) {
+  try {
+    const { email, password } = req.body;
+    pool.query(
+      "SELECT * FROM public.tbl_user WHERE email = $1",
+      [email],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+
+        const user = results.rows[0];
+        if (!user) {
+          return res.status(404).send({ message: "User Not found." });
+        }
+
+        const validPassword = bcrypt.compareSync(password, user.password);
+
+        if (!validPassword) {
+          return res.status(401).send({
+            message: "Invalid Password!",
+          });
+        }
+
+        const token = jwt.sign({ id: user.id }, config.secret, {
+          algorithm: "HS256",
+          allowInsecureKeySizes: true,
+          expiresIn: 86400, // 24 hours
+        });
+
+        req.session.token = token;
+        return res.status(200).send({
+          email: user.email,
+        });
+      }
+    );
+  } catch (error) {
+    return res.status(500).send({ message: error.message });
+  }
+});
+
+/* POST log out an user. */
+/**
+ * @swagger
+ *  /users/logout:
+ *  post:
+ *    summary:
+ *    tags: [User]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *    responses:
+ *      200:
+ *        description: You've been signed out
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      500:
+ *        description: Server error
+ */
+router.post("/logout", function (req, res, next) {
+  try {
+    req.session = null;
+    return res.status(200).send({
+      message: "You've been signed out!",
+    });
+  } catch (err) {
+    this.next(err);
+  }
 });
 
 module.exports = router;

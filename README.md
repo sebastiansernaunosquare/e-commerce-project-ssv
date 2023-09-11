@@ -74,7 +74,7 @@ Develop an e-commerce site that's going to allow the user to login or create an 
 
 |Quality Attribute|Tool(s)|Scope description|
 |--|--|--|
-|**Performance**|React,tailwind,style components|This library lets you build user interfaces out of individual pieces called components optimizing page loading and developer set up|
+|**Performance**|React,tailwind,style components,zustand|This library lets you build user interfaces out of individual pieces called components optimizing page loading and developer set up|
 |**Scalibility**|Client server-architecture|This architecture allows the site or application to have independent frontend and backend communication by making use of APIs|
 |**Environmental**|Nodejs-Express,swagger,graphql,active records library|These environment and library allows us to create APIs|
 |**Availability-Reliability**|MySql-Postgres|These Database allows us to have available and reliable access to data|

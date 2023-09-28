@@ -1,4 +1,4 @@
-import { UserRepositoryImpl } from "@src/infrastructure/implementations/repositories/UserRepositoryImpl";
+import { UserRepositoryImpl } from "@src/infrastructure/implementations/repositories/user/UserRepositoryImpl";
 import { IUser } from "@src/domain/models/User";
 import { GetAllUsersUseCase } from "@src/application/use-cases/user/get-all-users/GetAllUsersUseCase";
 import { CreateUserUseCase } from "@src/application/use-cases/user/create-user/CreateUserUseCase";

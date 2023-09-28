@@ -1,4 +1,4 @@
-import { UserRepositoryImpl } from "@src/infrastructure/implementations/repositories/UserRepositoryImpl";
+import { UserRepositoryImpl } from "@src/infrastructure/implementations/repositories/user/UserRepositoryImpl";
 
 import { compare } from "@src/domain/util/PwdUtil";
 import { tick } from "@src/domain/util/misc";
@@ -27,7 +27,7 @@ async function login(email: string, password: string): Promise<IUser> {
   if (!user) {
     throw new RouteError(
       HttpStatusCodes.UNAUTHORIZED,
-      Errors.EmailNotFound(email)
+      Errors.EmailNotFound(email),
     );
   }
 

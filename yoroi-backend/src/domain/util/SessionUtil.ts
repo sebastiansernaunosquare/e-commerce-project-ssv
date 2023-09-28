@@ -35,7 +35,7 @@ function getSessionData<T>(req: Request): Promise<string | T | undefined> {
  */
 async function addSessionData(
   res: Response,
-  data: string | object
+  data: string | object,
 ): Promise<Response> {
   if (!res || !data) {
     throw new RouteError(HttpStatusCodes.BAD_REQUEST, Errors.ParamFalsey);

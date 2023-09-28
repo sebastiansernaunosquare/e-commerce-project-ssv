@@ -23,12 +23,14 @@ import swaggerUI from "swagger-ui-express";
 import swaggerDocsSpec from "@src/frameworks/swagger";
 
 import { createHandler } from "graphql-http/lib/use/express";
+import expressPlayground from "graphql-playground-middleware-express";
 import { schema } from "@src/frameworks/GraphqlSchema";
 
 // **** Variables **** //
 
 const app = express();
 
+app.get("/graphql-playground", expressPlayground({ endpoint: "graphql" }));
 app.all("/graphql", createHandler({ schema }));
 
 // **** Setup **** //
@@ -59,8 +61,8 @@ app.use(
     err: Error,
     _: Request,
     res: Response,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    next: NextFunction
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, comma-dangle
+    next: NextFunction,
   ) => {
     if (EnvVars.NodeEnv !== NodeEnvs.Test.valueOf()) {
       logger.err(err, true);
@@ -70,7 +72,7 @@ app.use(
       status = err.status;
     }
     return res.status(status).json({ error: err.message });
-  }
+  },
 );
 
 // **** Export default **** //

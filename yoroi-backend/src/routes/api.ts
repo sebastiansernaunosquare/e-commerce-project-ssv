@@ -4,7 +4,7 @@ import jetValidator from "jet-validator";
 import adminMw from "./middleware/adminMw";
 import Paths from "../domain/constants/Paths";
 import AuthRoutes from "./AuthRoutes";
-import UserRoutes from "./UserRoutes";
+import userRouter from "./user/UserRoutes";
 
 // **** Variables **** //
 
@@ -19,7 +19,7 @@ const authRouter = Router();
 authRouter.post(
   Paths.Auth.Login,
   validate("email", "password"),
-  AuthRoutes.login
+  AuthRoutes.login,
 );
 
 // Logout user
@@ -30,26 +30,8 @@ apiRouter.use(Paths.Auth.Base, authRouter);
 
 // ** Add UserRouter ** //
 
-const userRouter = Router();
-
-// Get all users
-userRouter.get(Paths.Users.Get, UserRoutes.getAll);
-
-// Add one user
-userRouter.post(Paths.Users.Add, validate(["user"]), UserRoutes.add);
-
-// Update one user
-userRouter.put(Paths.Users.Update, validate(["user"]), UserRoutes.update);
-
-// Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
-  validate(["id", "number", "params"]),
-  UserRoutes.delete
-);
-
 // Add UserRouter
-apiRouter.use(Paths.Users.Base, adminMw, userRouter);
+apiRouter.use(Paths.Users.Base, userRouter);
 
 // **** Export default **** //
 

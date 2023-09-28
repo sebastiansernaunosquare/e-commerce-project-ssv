@@ -6,11 +6,11 @@ export class GetUserByEmailUseCase
   implements UseCase<string | undefined, IUser>
 {
   private userRepository: IUserRepository;
-  constructor(userRepository: IUserRepository) {
+  public constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 
-  execute(email: string | undefined): Promise<IUser> {
+  public execute(email: string | undefined): Promise<IUser> {
     if (typeof email === "undefined") {
       return Promise.reject(new Error("Not provided email"));
     }

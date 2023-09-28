@@ -4,11 +4,11 @@ import { UseCase } from "@src/domain/UseCase";
 
 export class GetAllUsersUseCase implements UseCase<unknown, IUser[]> {
   private userRepository: IUserRepository;
-  constructor(userRepository: IUserRepository) {
+  public constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 
-  execute(): Promise<IUser[]> {
+  public execute(): Promise<IUser[]> {
     return Promise.resolve(this.userRepository.getAll());
   }
 }

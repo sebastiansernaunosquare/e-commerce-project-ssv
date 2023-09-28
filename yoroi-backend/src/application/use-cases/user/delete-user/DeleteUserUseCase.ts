@@ -6,11 +6,11 @@ export class DeleteUserUseCase
   implements UseCase<string | undefined, IUser | boolean>
 {
   private userRepository: IUserRepository;
-  constructor(userRepository: IUserRepository) {
+  public constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 
-  execute(email: string | undefined): Promise<IUser | boolean> {
+  public execute(email: string | undefined): Promise<IUser | boolean> {
     if (typeof email === "undefined") {
       return Promise.reject(new Error("Not provided email"));
     }

@@ -1,7 +1,13 @@
 import HttpStatusCodes from "@src/domain/constants/HttpStatusCodes";
-import UserService from "@src/infrastructure/driven-adapters/services/UserService";
+import UserService from "@src/infrastructure/driven-adapters/services/user/UserService";
 import { IUser } from "@src/domain/models/User";
-import { IReq, IRes } from "./types/express/misc";
+import { IReq, IRes } from "../types/express/misc";
+import { Router } from "express";
+import Paths from "@src/domain/constants/Paths";
+import jetValidator from "jet-validator";
+
+const userRouter = Router();
+const validate = jetValidator();
 
 /**
  * @swagger
@@ -154,9 +160,20 @@ async function delete_(req: IReq, res: IRes) {
 
 // **** Export default **** //
 
-export default {
-  getAll,
-  add,
-  update,
-  delete: delete_,
-} as const;
+// Get all users
+userRouter.get(Paths.Users.Common, getAll);
+
+// Add one user
+userRouter.post(Paths.Users.Common, validate(["user"]), add);
+
+// Update one user
+userRouter.put(Paths.Users.Common, validate(["user"]), update);
+
+// Delete one user
+userRouter.delete(
+  Paths.Users.Common,
+  validate(["email", "string", "params"]),
+  delete_,
+);
+
+export default userRouter;
